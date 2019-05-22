@@ -1,0 +1,36 @@
+import pandas as pd
+import csv
+data = pd.read_csv('Testing1.csv')
+data['Starting Time'] = pd.to_datetime(data['Starting Time'], format="%d/%m/%Y %H:%M")
+
+data = data.sort_values(by='Starting Time', ascending=True)
+#print(data.to_csv(index=False))
+#data['Name'].to_csv(index=False)
+writeName=data['Name'].to_csv(index=False)
+Name=writeName.split()
+writeDay=data['Day'].to_csv(index=False)
+Day=writeDay.split()
+writeSTime=data['Starting Time'].to_csv(index=False)
+STime=writeSTime.split('\r\n')
+writeETime=data['Ending Time'].to_csv(index=False)
+ETime=writeETime.split('\r\n')
+
+#for i in range(0,len(Name)):
+#    print(Name[i]," ",Day[i]," ",STime[i]," ",ETime[i],"\n")
+
+write=[]
+header=[]
+with open("Testing1.csv", "r") as f:
+    reader = csv.reader(f, delimiter=",")
+    for row1 in reader:
+        header=row1
+        break
+with open("NewFile.csv", "w+",newline='') as f:
+    fileWriter = csv.writer(f, delimiter=',')
+    fileWriter.writerow(header)
+    for i in range(0,len(Name)):
+        write=[str(Name[i]),str(Day[i]),str(STime[i]),str(ETime[i])]
+        print(write)
+        fileWriter.writerow(write)
+
+
