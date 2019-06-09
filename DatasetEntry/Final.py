@@ -9,6 +9,9 @@ count = 0
 y = 0
 csvData=[['Patient Number','Day','Starting Time','Ending Time','Bed Number','Type']]
 csvData1=[['Patient Number','Starting Time','Ending Time','Bed Number']]
+'''
+Creating necessary databases
+'''
 with open('Schedule.csv', 'w+', newline='') as csvFile:
     csv.writer(csvFile).writerows(csvData)
 with open('Sunday.csv', 'w+', newline='') as Sunday:
@@ -26,11 +29,14 @@ with open('Friday.csv', 'w+', newline='') as Friday:
 with open('Saturday.csv', 'w+', newline='') as Saturday:
     csv.writer(Saturday).writerows(csvData1)
 
-data = csv.reader(open('Dataset.csv'),delimiter=',')
+data = csv.reader(open('Dataset.csv'),delimiter=',')        #Reading values from Dataset.csv
 for i in data:
     if x==0:
         x=1
         continue
+    '''
+    Checking the creatine levels of patients and segregating patients of similar type
+    '''
     if float(i[1])<8:
         #print(i[0]," : Once a week : ",i[1])
         once.append(i[0])
@@ -62,9 +68,10 @@ for k1 in thrice:
     n1=y
     n2=t
     n3=b
+    #Allocating space for the patient
     print(k1," ",day[y]," ",slot[t][0]," ",slot[t][1]," ",b," Thrice a week")
     d=[[str(k1),str(day[y]),str(slot[t][0]),str(slot[t][1]),str(b),"Thrice a week"]]
-    with open('Schedule.csv', 'a+', newline='') as csvFile:
+    with open('Schedule.csv', 'a+', newline='') as csvFile:     #Writing to Schedule.csv
         csv.writer(csvFile).writerows(d)
     z+=1
     b+=1
@@ -192,6 +199,9 @@ for i in data1:
     if x==0:
         x=1
         continue
+    '''
+    Writing data to necessary files
+    '''
     if i[1]=="Sunday":
         csvData1 =[[str(i[0]),str(i[2]),str(i[3]),str(i[4])]]
         with open('Sunday.csv', 'a+', newline='') as Sunday:
